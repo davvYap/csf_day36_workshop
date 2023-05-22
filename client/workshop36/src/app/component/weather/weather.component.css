@@ -1,0 +1,16 @@
+table,
+tr,
+td {
+  border: 1px solid;
+}
+
+table {
+  width: 60vw;
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

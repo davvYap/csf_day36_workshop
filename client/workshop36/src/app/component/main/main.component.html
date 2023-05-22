@@ -1,0 +1,21 @@
+<h1>Enter your city:</h1>
+<form [formGroup]="form" (submit)="checkWeather()">
+  <input type="text" placeholder="city..." formControlName="city" />
+
+  <div>
+    <input type="radio" value="standard" formControlName="units" />
+    <label for="html">Standard</label>
+
+    <input type="radio" value="metric" formControlName="units" />
+    <label for="css">Metric</label>
+
+    <input type="radio" value="imperial" formControlName="units" />
+    <label for="javascript">Imperial</label>
+  </div>
+
+  <button type="submit" [disabled]="form.invalid">Check weather</button>
+</form>
+<div *ngIf="weather$ | async as weather; else noWeather">
+  {{ weather }}
+</div>
+<ng-template #noWeather> No Weather Information </ng-template>

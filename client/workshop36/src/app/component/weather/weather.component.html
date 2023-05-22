@@ -1,0 +1,38 @@
+<button type="button" (click)="back()">Back</button>
+&nbsp;
+<button type="button" (click)="reload()">Reload</button>
+
+<div *ngIf="weather$ | async as wea; else loadingWeather" class="flex">
+  <table>
+    <thead>
+      <tr>
+        <td>id.</td>
+        <td>City</td>
+        <td>Coordinates</td>
+        <td>Weather</td>
+        <td>Description</td>
+        <td>Temp({{ tempUnit }})</td>
+        <td>Icon</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ wea.id }}</td>
+        <td>{{ wea.name }}</td>
+        <td>{{ wea.coord.lon }} | {{ wea.coord.lat }}</td>
+        <td>{{ wea.weather[0].main }}</td>
+        <td>{{ wea.weather[0].description }}</td>
+        <td>{{ wea.main.temp }}</td>
+        <td>
+          <img
+            src="https://openweathermap.org/img/wn/{{
+              wea.weather[0].icon
+            }}@2x.png"
+          />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #loadingWeather> Weather Loading... </ng-template>
