@@ -25,6 +25,7 @@ export class WeatherComponent implements OnInit, OnDestroy {
   ) {}
 
   // Reloads doesn't work because the weather api will only called once the component is initialized
+  // Thus we need to subscribe to the queryParams and get the city and units from there
   ngOnInit(): void {
     this.params$ = this.activatedRoute.queryParams.subscribe((params) => {
       console.log(params);
