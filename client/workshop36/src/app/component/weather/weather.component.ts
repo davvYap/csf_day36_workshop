@@ -12,8 +12,8 @@ import { Title } from '@angular/platform-browser';
 })
 export class WeatherComponent implements OnInit, OnDestroy {
   weather$!: Observable<Weather>;
-  tempUnit!: string;
   params$!: Subscription;
+  pathVar$!: Subscription;
   city!: string;
   units!: string;
 
@@ -27,15 +27,18 @@ export class WeatherComponent implements OnInit, OnDestroy {
   // Reloads doesn't work because the weather api will only called once the component is initialized
   // Thus we need to subscribe to the queryParams and get the city and units from there
   ngOnInit(): void {
-    this.params$ = this.activatedRoute.queryParams.subscribe((params) => {
-      console.log(params);
-      const cityInput: string = params['city'];
-      const unitsInput: string = params['units'];
-      this.tempUnit = unitsInput;
+    this.pathVar$ = this.activatedRoute.params.subscribe((pathVar) => {
+      console.log('path variable >>> ' + pathVar);
+      const cityInput: string = pathVar['city'];
       this.city = cityInput;
-      this.units = unitsInput;
-      this.weather$ = this.weatherService.getWeather(cityInput, unitsInput);
     });
+
+    this.params$ = this.activatedRoute.queryParams.subscribe((params) => {
+      console.log('query params >>>' + params);
+      const unitsInput: string = params['units'];
+      this.units = unitsInput;
+    });
+    this.weather$ = this.weatherService.getWeather(this.city, this.units);
     // const cityInput: string = this.activatedRoute.snapshot.queryParams['city'];
     // const unitsInput: string =
     //   this.activatedRoute.snapshot.queryParams['units'];
@@ -56,15 +59,5 @@ export class WeatherComponent implements OnInit, OnDestroy {
 
   back() {
     this.router.navigate(['/']);
-  }
-
-  reload() {
-    this.router.navigate(['/weather'], {
-      queryParams: {
-        city: this.city,
-        units: this.units,
-      },
-    });
-    console.log('Reloaded Weather Component');
   }
 }

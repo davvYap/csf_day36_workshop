@@ -10,7 +10,7 @@ import { WeatherComponent } from './component/weather/weather.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent },
-  { path: 'weather', component: WeatherComponent },
+  { path: 'weather/:city', component: WeatherComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 
@@ -20,7 +20,7 @@ const routes: Routes = [
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, { useHash: true }),
   ],
   providers: [],
   bootstrap: [AppComponent],

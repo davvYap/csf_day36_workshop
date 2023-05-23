@@ -44,10 +44,9 @@ export class MainComponent implements OnInit {
     console.log('City input from main component >>> ', cityInput);
 
     const params: Params = {
-      city: cityInput,
       units: unitsInput,
     };
-    this.router.navigate(['/weather'], {
+    this.router.navigate(['/weather', cityInput], {
       queryParams: params,
     });
   }
